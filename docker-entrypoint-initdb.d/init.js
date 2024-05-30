@@ -1,5 +1,6 @@
 /* eslint-disable */
-/* eslint-env mongo */db = db.getSiblingDB('db1');
+/* eslint-env mongo */
+db = db.getSiblingDB('chess');
 
 db.createCollection('attempt', {
   validator: {

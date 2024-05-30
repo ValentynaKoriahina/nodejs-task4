@@ -37,6 +37,7 @@ export default async () => {
 
   await mongoose.connect(config.mongoAddress, {
     socketTimeoutMS: 30000,
+    dbName: config.dbName,
   });
 
   return app;
