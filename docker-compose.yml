@@ -6,6 +6,7 @@ services:
       - '27018:27017'
     volumes:
       - ./docker/data/mongo/db:/data/db
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     networks:
       - app-network
 
