@@ -1,9 +1,14 @@
 import axios from 'axios';
 import config from 'src/config';
 
-// Контроллер для получения количества объектов Attempt для каждого exerciseId
+/**
+ * Service to fetch data from Spring Boot API to check if an exercise with the given ID exists.
+ * 
+ * @param {number} exerciseId - The ID of the exercise to check.
+ * @returns {Promise<boolean>} - Returns true if the exercise exists, otherwise false.
+ * @throws {Error} - If there is an error making the request to the API.
+ */
 export const fetchDataFromSpringBootAPI = async (exerciseId: number) => {
-  
   try {
     await axios.get(`${config.chessApiAddress}/chess_exercise/${exerciseId}`);
     return true;
@@ -11,7 +16,7 @@ export const fetchDataFromSpringBootAPI = async (exerciseId: number) => {
     if (error.response && error.response.status === 404) {
       return false;
     } else {
-      console.error('Ошибка при запросе данных из API Spring Boot:', error);
+      console.error('Error fetching data from Spring Boot API:', error);
       throw error;
     }
   }

@@ -9,7 +9,6 @@ export default async () => {
 
   log4js.configure(config.log4js);
 
-  // Отключаем кэширование запросов, возвращающих 304 вместо 200
   app.disable('etag');
 
   app.use(express.json({ limit: '1mb' }));

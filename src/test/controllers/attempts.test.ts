@@ -5,25 +5,23 @@ import config from 'src/config';
 import app from 'src/app';
 import express from 'express';
 
-
 const { expect } = chai;
 chai.use(chaiHttp);
 
-const serverUrl = 'http://localhost:8888'; // Адрес запущенного сервера
-
+const serverUrl = 'http://localhost:8888'; // Server URL
 
 const mockExerciseApp = express();
 
 describe('Attempt controller', () => {
 
   before(async () => {
-    // Запуск мокового стороннего сервера
+    // Start mock external server
     mockExerciseApp.get('/api/chess_exercise/:exerciseId', (req, res) => {
-      const exerciseId = parseInt(req.params.exerciseId); // Преобразуем exerciseId в число
+      const exerciseId = parseInt(req.params.exerciseId); // Convert exerciseId to number
 
       const validExerciseIds = [1, 2, 3];
 
-      if (validExerciseIds.includes(exerciseId)) { // Проверяем, есть ли exerciseId в списке допустимых
+      if (validExerciseIds.includes(exerciseId)) { // Check if exerciseId is in the list of valid IDs
         res.status(200).json({ message: 'OK' });
       } else {
         res.status(404).json({ message: 'Exercise not found' });
@@ -39,16 +37,16 @@ describe('Attempt controller', () => {
     };
     await mongoose.connect(config.mongoAddress, mongooseOpts);
 
-    // Очищаем коллекцию до выполнения всех тестов
+    // Clear the collection before running all tests
     await mongoose.connection.db.collection('attempt').deleteMany({});
     await mongoose.disconnect();
 
-    // Запуск сервера
+    // Start the server
     await app();
   });
 
   after(async () => {
-    // Очищаем коллекцию после выполнения всех тестов
+    // Clear the collection after running all tests
     await mongoose.connection.db.collection('attempt').deleteMany({});
     await mongoose.disconnect();
   });
@@ -129,7 +127,7 @@ describe('Attempt controller', () => {
       },
     ];
 
-    let count = 0; // Счетчик выполненных запросов
+    let count = 0; // Counter for completed requests
 
     for (const attempt of attempts) {
       chai.request(serverUrl)
@@ -151,7 +149,7 @@ describe('Attempt controller', () => {
 
           count++;
           if (count === attempts.length) {
-            done(); // Вызываем done() только после выполнения всех запросов
+            done(); // Call done() only after all requests are completed
           }
         });
     }
@@ -195,10 +193,9 @@ describe('Attempt controller', () => {
 
         for (const e of res.body) {
           expect(e).to.have.property('exerciseId').eql(exerciseId);
-
         }
 
-        done(); // Вызываем done() только после всех проверок
+        done(); // Call done() only after all assertions
       });
   });
 

@@ -1,15 +1,16 @@
+// export default Attempt;
 import mongoose, { Document, Schema } from 'mongoose';
 
-// Определение интерфейса для документа Attempt
+// Define interface for Attempt document
 export interface IAttempt extends Document {
   studentId: number;
-  timeSpent: string; // формат ISO 8601
+  timeSpent: string; // ISO 8601 format
   solved: boolean;
   exerciseId: number;
   datetime: Date;
 }
 
-// Создание схемы для сущности Attempt
+// Create schema for Attempt entity
 const attemptSchema = new Schema({
   studentId: {
     type: Number,
@@ -20,7 +21,7 @@ const attemptSchema = new Schema({
     required: true,
     validate: {
       validator: function(value: string) {
-        // Проверка формата timeSpent
+        // Validate timeSpent format
         const timeSpentRegex = /^PT\d+H\d+M\d+S$/;
         return timeSpentRegex.test(value);
       },
@@ -40,10 +41,10 @@ const attemptSchema = new Schema({
     required: true,
   },
 }, {
-  collection: 'attempt', // Явно указываем имя коллекции
+  collection: 'attempt', // Explicitly specify collection name
 });
 
-// Создание модели на основе схемы
+// Create model based on schema
 const Attempt = mongoose.model<IAttempt>('Attempt', attemptSchema);
 
 export default Attempt;

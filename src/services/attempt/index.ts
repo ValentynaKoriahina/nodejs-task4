@@ -1,12 +1,21 @@
 import Attempt from 'src/model/attempt';
 import { fetchDataFromSpringBootAPI } from 'src/services/exercise';
 
-
+/**
+ * Adds a new attempt to the database.
+ * 
+ * @param {Object} data - The attempt data.
+ * @param {string} data.studentId - The ID of the student.
+ * @param {number} data.timeSpent - The time spent on the exercise in seconds.
+ * @param {boolean} data.solved - Indicates if the exercise was solved.
+ * @param {number} data.exerciseId - The ID of the exercise.
+ * @returns {Promise<Attempt>} - The newly created attempt.
+ * @throws {Error} - If the exercise ID is not valid.
+ */
 export const addAttempt = async (data: { studentId: string, timeSpent: number, solved: boolean, exerciseId: number }) => {
-
   const { studentId, timeSpent, solved, exerciseId } = data;
 
-  // Проверка валидности exerciseId
+  // Validate exerciseId (external service request)
   const validExerciseId = await fetchDataFromSpringBootAPI(exerciseId);
 
   if (!validExerciseId) {
@@ -25,7 +34,14 @@ export const addAttempt = async (data: { studentId: string, timeSpent: number, s
   return newAttempt;
 };
 
-
+/**
+ * Retrieves attempts from the database based on the exercise ID.
+ * 
+ * @param {string} exerciseId - The ID of the exercise.
+ * @param {string} [size] - The number of attempts to retrieve.
+ * @param {string} [from] - The offset from which to start retrieving attempts.
+ * @returns {Promise<Attempt[]>} - The list of attempts.
+ */
 export const getAttempts = async (exerciseId: string, size?: string, from?: string) => {
   const limit = size ? parseInt(size) : 10;
   const skip = from ? parseInt(from) : 0;
@@ -39,6 +55,12 @@ export const getAttempts = async (exerciseId: string, size?: string, from?: stri
   return attempts;
 };
 
+/**
+ * Retrieves the count of attempts for each exercise ID.
+ * 
+ * @param {number[]} exerciseIds - The list of exercise IDs.
+ * @returns {Promise<{ [key: number]: number }>} - An object mapping exercise IDs to their attempt counts.
+ */
 export const getAttemptsCounts = async (exerciseIds: number[]) => {
   const counts: { [key: number]: number } = {};
   exerciseIds.forEach((id: number) => {

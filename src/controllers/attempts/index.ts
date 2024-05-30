@@ -2,11 +2,13 @@ import { Request, Response } from 'express';
 import {
   addAttempt as addAttemptApi,
   getAttempts as getAttemptsApi,
-  getAttemptsCounts as getAttemptsCountstApi,
+  getAttemptsCounts as getAttemptsCountApi,
 } from 'src/services/attempt';
 
+/**
+ * Adds a new Attempt.
+ */
 export const addAttempt = async (req: Request, res: Response): Promise<Response> => {
-
   try {
     const newAttempt = await addAttemptApi(req.body);
     return res.status(201).json({ message: 'Attempt added successfully', attempt: newAttempt });
@@ -16,6 +18,9 @@ export const addAttempt = async (req: Request, res: Response): Promise<Response>
   }
 };
 
+/**
+ * Gets the Attempts for the given exercise.
+ */
 export const getAttempts = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { exerciseId, size, from } = req.query;
@@ -31,6 +36,9 @@ export const getAttempts = async (req: Request, res: Response): Promise<Response
   }
 };
 
+/**
+ * Gets the number of attempts for the given exercises.
+ */
 export const getAttemptsCounts = async (req: Request, res: Response): Promise<Response> => {
   try {
     const { exerciseIds } = req.body;
@@ -39,7 +47,7 @@ export const getAttemptsCounts = async (req: Request, res: Response): Promise<Re
       return res.status(400).json({ message: 'exerciseIds is required and should be an array' });
     }
 
-    const counts = await getAttemptsCountstApi(exerciseIds);
+    const counts = await getAttemptsCountApi(exerciseIds);
     return res.status(200).json(counts);
   } catch (error) {
     return res.status(500).json({ message: 'Error retrieving counts', error });
