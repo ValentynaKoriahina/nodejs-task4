@@ -1,5 +1,6 @@
 import Attempt from 'src/model/attempt';
 import { fetchDataFromSpringBootAPI } from 'src/services/exercise';
+import { sendEmail } from 'src/services/email';
 
 /**
  * Adds a new attempt to the database.
@@ -31,6 +32,14 @@ export const addAttempt = async (data: { studentId: string, timeSpent: number, s
   });
 
   await newAttempt.save();
+
+  const recipient = 'valpetrenko88@gmail.com';
+  const subject = 'A new attempt has been made';
+  const content = 'An attempt was made by the user to solve the exercise';
+
+  // Send message to Mail Service through RabbitMQ
+  sendEmail(recipient, subject, content);
+
   return newAttempt;
 };
 

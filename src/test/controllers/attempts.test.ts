@@ -17,7 +17,7 @@ describe('Attempt controller', () => {
   before(async () => {
     // Start mock external server
     mockExerciseApp.get('/api/chess_exercise/:exerciseId', (req, res) => {
-      const exerciseId = parseInt(req.params.exerciseId); // Convert exerciseId to number
+      const exerciseId = parseInt(req.params.exerciseId);
 
       const validExerciseIds = [1, 2, 3];
 

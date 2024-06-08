@@ -2,8 +2,13 @@ import express, { Request, Response } from 'express';
 
 const mockExerciseApp = express();
 
+/**
+ * Route for handling GET requests to the Chess Exercise service '...:8080/api/chess_exercise/:exerciseId'.
+ * This route is used to simulate the server's response to Chess Exercise requests.
+ * The ':exerciseId' parameter in the URL represents the identifier of the exercise to be checked.
+ */
 mockExerciseApp.get('/api/chess_exercise/:exerciseId', (req: Request, res: Response) => {
-  const exerciseId = parseInt(req.params.exerciseId, 10); // Convert exerciseId to number
+  const exerciseId = parseInt(req.params.exerciseId, 10);
 
   const validExerciseIds = [1, 2, 3];
 

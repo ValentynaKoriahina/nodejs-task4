@@ -1,4 +1,3 @@
-// export default Attempt;
 import mongoose, { Document, Schema } from 'mongoose';
 
 // Define interface for Attempt document
