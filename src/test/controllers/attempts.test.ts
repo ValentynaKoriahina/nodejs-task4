@@ -39,7 +39,7 @@ describe('Attempt controller', () => {
 
     // Clear the collection before running all tests
     await mongoose.connection.db.collection('attempt').deleteMany({});
-    await mongoose.disconnect();
+    // await mongoose.disconnect();
 
     // Start the server
     await app();
