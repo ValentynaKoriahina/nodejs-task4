@@ -1,36 +1,36 @@
 # nodejs-task4
 
-## Общее описание
+# Общее описание
 This API provides functionality for managing attempts for chess exercises. It allows you to create attempts, get a list of them, and count the number of attempts for certain exercises.
 
-# Setup
+## Setup
 
 Execute `docker-compose up` in the terminal for starting db in Docker
 
 Execute `npm install` in the terminal for installing application dependencies
 
 
-# How to develop
+## How to develop
 
 ```
 npm run devel
 ```
 
-## Note on Developing mode
+#### Note on Developing mode
 In this mode, in parallel with the main server of this application, a mock server is launched, which simulates the responses of the external Chess Tasks service
 
-# How to run tests
+## How to run tests
 
 ```
 npm run test
 ```
 
-## Note on Testing
+#### Note on Testing
 
 During the tests, access to the external service is mocked. The mock server is set up to respond with appropriate data or errors based on the requests made during the tests.
 
 
-## API Documentation
+# API Documentation
 
 ### Routes (Endpoints)
 
