@@ -12,7 +12,7 @@ export const publishMessage  = async (message: EmailDTO, queue: string) => {
 
   // Queue parameters
   await channel.assertQueue(queue, {
-    durable: false,
+    durable: true,
   });
 
   const payload = JSON.stringify(message);
